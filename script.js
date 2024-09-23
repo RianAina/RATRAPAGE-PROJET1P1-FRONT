@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputs = document.querySelectorAll('#inputs input');
     const textOutput = document.getElementById('text-output');
     const ctx = document.getElementById('graph').getContext('2d');
+    const fluxImpossiblesDiv = document.getElementById('flux-impossibles');
+    const historiqueDiv = document.getElementById('historique');
     let chart;
   
     inputs.forEach(input => {
@@ -27,14 +29,37 @@ document.addEventListener('DOMContentLoaded', function() {
       const obligationsData = [];
   
       let currentDate = new Date(dateDebut);
+      let fluxImpossiblesHTML = '';
+      let historiqueHTML = '';
+      const monthsDiff = (dateFin.getFullYear() - dateDebut.getFullYear()) * 12 + (dateFin.getMonth() - dateDebut.getMonth());
+  
+      if (monthsDiff > 6) {
+        fluxImpossiblesHTML = '<p>2024-07-01: Patrimoine: -1000000€ (Impossible)</p>'; // Exemple de flux impossible
+      }
+  
       while (currentDate <= dateFin) {
         labels.push(currentDate.toLocaleDateString());
-        patrimoineData.push(calculateValue(100000, currentDate, dateDebut));
-        tresorerieData.push(calculateValue(50000, currentDate, dateDebut));
-        immobilisationsData.push(calculateValue(30000, currentDate, dateDebut));
-        obligationsData.push(calculateValue(20000, currentDate, dateDebut));
-        currentDate.setMonth(currentDate.getMonth() + 1);
+        const patrimoineValue = calculateValue(100000, currentDate, dateDebut);
+        const tresorerieValue = calculateValue(50000, currentDate, dateDebut);
+        const immobilisationsValue = calculateValue(30000, currentDate, dateDebut);
+        const obligationsValue = calculateValue(20000, currentDate, dateDebut);
+  
+        patrimoineData.push(patrimoineValue);
+        tresorerieData.push(tresorerieValue);
+        immobilisationsData.push(immobilisationsValue);
+        obligationsData.push(obligationsValue);
+  
+        historiqueHTML += `<p>${currentDate.toLocaleDateString()} : 
+          Patrimoine: ${patrimoineValue.toFixed(2)}€, 
+          Trésorerie: ${tresorerieValue.toFixed(2)}€, 
+          Immobilisations: ${immobilisationsValue.toFixed(2)}€, 
+          Obligations: ${obligationsValue.toFixed(2)}€</p>`;
+  
+        currentDate.setDate(currentDate.getDate() + 1);
       }
+  
+      fluxImpossiblesDiv.innerHTML = fluxImpossiblesHTML;
+      historiqueDiv.innerHTML = historiqueHTML;
   
       // Mise à jour du graphique
       if (chart) {
@@ -83,12 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     function calculateValue(initialValue, currentDate, startDate) {
-      const monthsDiff = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
-      return initialValue * Math.pow(0.9, monthsDiff);
+      const daysDiff = (currentDate - startDate) / (1000 * 60 * 60 * 24);
+      return initialValue * Math.pow(0.9967, daysDiff); // 0.9967 représente une diminution de 0.33% par jour
     }
   
     // Initialisation
     document.getElementById('dateDebut').valueAsDate = new Date();
-    document.getElementById('dateFin').valueAsDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+    document.getElementById('dateFin').valueAsDate = new Date(new Date().setDate(new Date().getDate() + 30));
     updateOutputs();
   });
