@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestion de Patrimoine</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="inputs">
+    <h2>Entrées utilisateur</h2>
+    <div>
+      <label for="dateDebut">Date de début : </label>
+      <input type="date" id="dateDebut">
+    </div>
+    <div>
+      <label for="dateFin">Date de fin : </label>
+      <input type="date" id="dateFin">
+    </div>
+    <div>
+      <input type="checkbox" id="patrimoine" checked> <label for="patrimoine">Patrimoine</label>
+    </div>
+    <div>
+      <input type="checkbox" id="tresorerie" checked> <label for="tresorerie">Trésorerie</label>
+    </div>
+    <div>
+      <input type="checkbox" id="immobilisations" checked> <label for="immobilisations">Immobilisations</label>
+    </div>
+    <div>
+      <input type="checkbox" id="obligations" checked> <label for="obligations">Obligations</label>
+    </div>
+  </div>
+  <div id="outputs">
+    <h2>Sorties</h2>
+    <div id="text-output"></div>
+    <div id="graph-container">
+      <canvas id="graph"></canvas>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#inputs {
+  background-color: #ffd700;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+#outputs {
+  background-color: #add8e6;
+  padding: 20px;
+}
+
+#graph-container {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#graph {
+  width: 100%;
+  height: 400px;
+}
