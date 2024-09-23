@@ -14,7 +14,7 @@ body {
 
 #inputs {
   flex: 0 0 300px;
-  background-color: #e0e0e0;  /* Gris clair pour l'entrée */
+  background-color: #e0e0e0;
   padding: 20px;
   margin-right: 20px;
   border-radius: 5px;
@@ -22,7 +22,7 @@ body {
 
 #outputs {
   flex: 1;
-  background-color: #d0d0d0;  /* Gris un peu plus foncé pour la sortie */
+  background-color: #d0d0d0;
   padding: 20px;
   border-radius: 5px;
 }
